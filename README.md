@@ -19,6 +19,25 @@ You can get proxies obtained using this project in [monosans/proxy-list](https:/
 
 ## Installation and usage
 
+### scrape source config
+
+you can add your own in config.toml
+
+Scraper :: HTTP   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 87/87
+Scraper :: SOCKS4 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53/53
+Scraper :: SOCKS5 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56/56
+Checker :: HTTP   ━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━   8523/101005
+Checker :: SOCKS4 ━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  1924/23857
+Checker :: SOCKS5 ━━━╺━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  1329/15780
+
+before
+
+┃ Protocol ┃ Working    ┃ Total ┃
+┡━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━┩
+│ HTTP     │ 100 (0.1%) │ 71206 │
+│ SOCKS4   │ 85 (0.6%)  │ 14343 │
+│ SOCKS5   │ 51 (0.4%)  │ 14089
+
 ### Standalone executable
 
 This is the easiest way, but it is only available for x86-64 Windows, x86-64/arm64 macOS and x86-64 Linux. Just download the archive for your OS from [nightly.link](https://nightly.link/monosans/proxy-scraper-checker/workflows/ci/main?preview), unzip it, edit `config.toml` and run the `proxy_scraper_checker` executable.

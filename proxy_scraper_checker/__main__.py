@@ -17,6 +17,7 @@ from typing_extensions import Any, TypeVar
 from . import checker, geodb, http, output, scraper, sort, utils
 from .settings import Settings
 from .storage import ProxyStorage
+from aiohttp_socks import ProxyType, ProxyConnector, ChainProxyConnector
 
 if sys.version_info >= (3, 11):
     try:
@@ -112,9 +113,11 @@ async def main() -> None:
     cfg = await read_config("config.toml")
     console = Console()
     configure_logging(console=console, debug=cfg["debug"])
+    connector = ProxyConnector.from_url('socks5://127.0.0.1:1080')
 
     async with ClientSession(
-        connector=TCPConnector(ssl=http.SSL_CONTEXT),
+        # connector=TCPConnector(ssl=http.SSL_CONTEXT),
+        connector=connector,
         headers=http.HEADERS,
         cookie_jar=http.get_cookie_jar(),
         raise_for_status=True,
