@@ -18,7 +18,7 @@ from . import checker, geodb, http, output, scraper, sort, utils
 from .settings import Settings
 from .storage import ProxyStorage
 from aiohttp_socks import ProxyType, ProxyConnector, ChainProxyConnector
-
+import time 
 if sys.version_info >= (3, 11):
     try:
         import tomllib
@@ -113,17 +113,19 @@ async def main() -> None:
     cfg = await read_config("config.toml")
     console = Console()
     configure_logging(console=console, debug=cfg["debug"])
-    connector = ProxyConnector.from_url('socks5://127.0.0.1:1080')
+
 
     async with ClientSession(
-        # connector=TCPConnector(ssl=http.SSL_CONTEXT),
-        connector=connector,
+        connector=TCPConnector(ssl=http.SSL_CONTEXT),
         headers=http.HEADERS,
         cookie_jar=http.get_cookie_jar(),
         raise_for_status=True,
         fallback_charset_resolver=http.fallback_charset_resolver,
     ) as session:
         settings = await Settings.from_mapping(cfg, session=session)
+        # if settings.local_proxy:
+            # session._connector = ProxyConnector.from_url(settings.local_proxy)
+            # session._connector
         storage = ProxyStorage(protocols=settings.sources)
         with Progress(
             TextColumn("[yellow]{task.fields[col1]}"),
@@ -150,6 +152,12 @@ async def main() -> None:
             )
             await session.close()
             count_before_checking = storage.get_count()
+
+            # 记录开始时间
+            start_time = time.time()
+
+
+
             await checker.check_all(
                 settings=settings,
                 storage=storage,
@@ -157,6 +165,16 @@ async def main() -> None:
                 proxies_count=count_before_checking,
             )
 
+            # 这里是你的代码逻辑
+            # ...
+
+            # 记录结束时间
+            end_time = time.time()
+
+            # 计算运行时间
+            elapsed_time = end_time - start_time
+
+            console.print(f"程序运行时间：{elapsed_time} 秒")
     count_after_checking = storage.get_count()
     console.print(
         get_summary_table(

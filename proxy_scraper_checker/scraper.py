@@ -26,6 +26,7 @@ logger = logging.getLogger(__name__)
 async def scrape_one(
     *,
     progress: Progress,
+    settings:Settings,
     proto: ProxyType,
     session: ClientSession,
     source: str,
@@ -35,7 +36,8 @@ async def scrape_one(
 ) -> None:
     try:
         if is_http_url(source):
-            async with session.get(source, timeout=timeout) as response:
+
+            async with session.get(source,proxy=settings.local_proxy if settings.local_proxy else None, timeout=timeout) as response:
                 content = await response.read()
             text = get_response_text(response=response, content=content)
         else:
@@ -99,6 +101,7 @@ async def scrape_all(
             scrape_one(
                 progress=progress,
                 proto=proto,
+                settings=settings,
                 session=session,
                 source=source,
                 storage=storage,

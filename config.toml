@@ -1,3 +1,6 @@
+# local proxy if you cannot access github directly
+local_proxy = "socks5://127.0.0.1:1080"
+
 # The number of seconds to wait for a proxied request.
 # The higher the number, the longer the check will take
 # and the more proxies you get.
@@ -16,13 +19,18 @@ max_connections = 512
 # If it is not httpbin or a service that returns an IP address,
 # it will be impossible to determine the anonymity and geolocation of the proxy.
 # Example:
-# check_website = "https://google.com"
+#check_website = "https://google.com"
 # check_website = "https://1688.com"
 # check_website = "https://amazon.com"
 
 # check_website = "https://httpbin.smp.io/ip"
 # check_website = "https://checkip.amazonaws.com"
-check_website = "https://trends.google.com"
+#check_website = "https://domains.revved.com"
+#check_website = "https://revved.com"
+#check_website = "https://verisign.com"
+#check_website = "https://cloudflare.com"
+#check_website = "https://web.archive.org"
+check_website = "https://trustpilot.com"
 
 # Set to false to sort proxies alphabetically.
 sort_by_speed = true

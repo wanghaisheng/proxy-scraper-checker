@@ -177,6 +177,11 @@ async def _get_check_website_type_and_real_ip(
     match_args=False,
 )
 class Settings:
+    
+    local_proxy: str = attrs.field(
+        validator=attrs.validators.instance_of(str)
+    )
+
     check_website: str = attrs.field(
         validator=attrs.validators.instance_of(str)
     )
@@ -302,6 +307,7 @@ class Settings:
         await output_path_future
 
         return cls(
+            local_proxy=cfg["local_proxy"],
             check_website=cfg["check_website"],
             check_website_type=check_website_type,
             enable_geolocation=enable_geolocation,
