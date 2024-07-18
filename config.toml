@@ -31,6 +31,9 @@ max_connections = 512
 #check_website = "https://cloudflare.com"
 #check_website = "https://web.archive.org"
 check_website = "https://trustpilot.com"
+#check_website = "https://reddit.com"
+#check_website = "https://cloudflare.com"
+#check_website='https://revseller.com'
 
 # Set to false to sort proxies alphabetically.
 sort_by_speed = true
@@ -47,7 +50,7 @@ debug = false
 # Path to the folder where the proxies will be saved.
 # Leave blank to save the proxies to the current directory.
 # This option is ignored in Docker.
-path = "./out"
+path = "./out-trust"
 
 json = true
 txt = true
